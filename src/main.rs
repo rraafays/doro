@@ -1,10 +1,10 @@
-#![allow(dead_code)]
-
 use std::thread::sleep;
 use std::time::Duration;
+use std::io::Write;
 
 fn main() {
-  timer(Time { minutes: 1, seconds: 30 }, String::from("test"));
+  timer(Time { minutes: 25, seconds: 0 });
+  timer(Time { minutes: 5, seconds: 0 });
 }
 
 enum Operation {
@@ -18,11 +18,11 @@ struct Time {
   seconds: u8
 }
 
-fn timer (time: Time, message: String) {
+fn timer (time: Time) {
   let mut remaining_time: Time = time;
-  
+
   loop {
-    println!("{}:{}", remaining_time.minutes, remaining_time.seconds);
+    print_time(&remaining_time);
     match get_operation(&remaining_time) {
       Operation::Break => break,
       Operation::Reset => reset_seconds(&mut remaining_time),
@@ -41,4 +41,9 @@ fn get_operation(time: &Time) -> Operation {
 fn reset_seconds(mut time: &mut Time) {
   time.seconds = 59;
   if time.minutes > 0 { time.minutes -= 1; }
+}
+
+fn print_time(time: &Time) {
+  print!("\r{:0>2}:{:0>2}", time.minutes, time.seconds);
+  std::io::stdout().flush().unwrap();
 }
