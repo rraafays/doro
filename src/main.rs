@@ -3,8 +3,10 @@ use std::time::Duration;
 use std::io::Write;
 
 fn main() {
-  timer(Time { minutes: 25, seconds: 0 });
-  timer(Time { minutes: 5, seconds: 0 });
+  loop {
+    timer(Time { minutes: 25, seconds: 0 });
+    timer(Time { minutes: 5, seconds: 0 });
+  }
 }
 
 enum Operation {
@@ -23,12 +25,12 @@ fn timer (time: Time) {
 
   loop {
     print_time(&remaining_time);
+    sleep(Duration::from_secs(1));
     match get_operation(&remaining_time) {
       Operation::Break => break,
       Operation::Reset => reset_seconds(&mut remaining_time),
       Operation::None => remaining_time.seconds -= 1
     }
-    sleep(Duration::from_secs(1));
   }
 }
 
