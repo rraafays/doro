@@ -16,7 +16,9 @@ fn main() {
   let arguments = Arguments::parse();
   loop {
     timer(Time { minutes: arguments.work, seconds: 0 }, Mode::Work);
+    print!("\x07");
     timer(Time { minutes: arguments.rest, seconds: 0 }, Mode::Rest);
+    print!("\x07");
   }
 }
 
