@@ -2,6 +2,7 @@ use std::thread::sleep;
 use std::time::Duration;
 use std::io::Write;
 use clap::Parser;
+use colored::Colorize;
 
 #[derive(Parser)]
 struct Arguments {
@@ -12,8 +13,8 @@ struct Arguments {
 fn main() {
   let arguments = Arguments::parse();
   loop {
-    timer(Time { minutes: arguments.work, seconds: 0 });
-    timer(Time { minutes: arguments.rest, seconds: 0 });
+    timer(Time { minutes: arguments.work, seconds: 0 }, Mode::Work);
+    timer(Time { minutes: arguments.rest, seconds: 0 }, Mode::Rest);
   }
 }
 
@@ -23,16 +24,21 @@ enum Operation {
   None
 }
 
+enum Mode {
+  Work,
+  Rest
+}
+
 struct Time {
   minutes: u8,
   seconds: u8
 }
 
-fn timer (time: Time) {
+fn timer (time: Time, mode: Mode) {
   let mut remaining_time: Time = time;
 
   loop {
-    print_time(&remaining_time);
+    print_time(&remaining_time, &mode);
     sleep(Duration::from_secs(1));
     match get_operation(&remaining_time) {
       Operation::Break => break,
@@ -53,7 +59,12 @@ fn reset_seconds(mut time: &mut Time) {
   if time.minutes > 0 { time.minutes -= 1; }
 }
 
-fn print_time(time: &Time) {
-  print!("\r{:0>2}:{:0>2}", time.minutes, time.seconds);
+fn print_time(time: &Time, mode: &Mode) {
+  let symbol;
+  match mode {
+    Mode::Work => symbol = "WORK ".bright_red().bold(),
+    Mode::Rest => symbol = "REST ".bright_blue().bold()
+  }
+  print!("\r{}{:0>2}:{:0>2}", symbol, time.minutes, time.seconds);
   std::io::stdout().flush().unwrap();
 }
