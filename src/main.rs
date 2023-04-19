@@ -1,11 +1,19 @@
 use std::thread::sleep;
 use std::time::Duration;
 use std::io::Write;
+use clap::Parser;
+
+#[derive(Parser)]
+struct Arguments {
+  work: u8,
+  rest: u8
+}
 
 fn main() {
+  let arguments = Arguments::parse();
   loop {
-    timer(Time { minutes: 25, seconds: 0 });
-    timer(Time { minutes: 5, seconds: 0 });
+    timer(Time { minutes: arguments.work, seconds: 0 });
+    timer(Time { minutes: arguments.rest, seconds: 0 });
   }
 }
 
