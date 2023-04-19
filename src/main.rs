@@ -6,7 +6,9 @@ use colored::Colorize;
 
 #[derive(Parser)]
 struct Arguments {
+  #[arg(short, long, default_value_t = 25)]
   work: u8,
+  #[arg(short, long, default_value_t = 5)]
   rest: u8
 }
 
@@ -36,7 +38,6 @@ struct Time {
 
 fn timer (time: Time, mode: Mode) {
   let mut remaining_time: Time = time;
-
   loop {
     print_time(&remaining_time, &mode);
     sleep(Duration::from_secs(1));
