@@ -5,6 +5,7 @@ edition = "2021"
 license = "MIT"
 description = "terminal pomodoro timer"
 homepage = "https://raafay.world/projects/pomo"
+repository = "https://github.com/rraafays/pomo"
 
 [dependencies]
 clap = { version = "4.2.4", features = ["derive"] }
