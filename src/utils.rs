@@ -23,12 +23,12 @@ pub fn get_operation(time: &Time) -> Operation {
   else { return Operation::None }
 }
 
-pub fn reset_seconds(mut time: &mut Time) {
+pub fn reset_seconds(time: &mut Time) {
   time.seconds = 59;
   if time.minutes > 0 { time.minutes -= 1; }
 }
 
-pub fn advance(mut time: &mut Time) { time.seconds -= 1; }
+pub fn advance(time: &mut Time) { time.seconds -= 1; }
 
 pub fn print_time(time: &Time, mode: &Mode) {
   let symbol;
