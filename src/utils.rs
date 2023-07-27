@@ -35,9 +35,7 @@ pub fn reset_seconds(time: &mut Time) {
   }
 }
 
-pub fn advance(time: &mut Time) {
-  time.seconds -= 1;
-}
+pub fn advance(time: &mut Time) { time.seconds -= 1; }
 
 pub fn print_time(time: &Time, mode: &Mode) {
   let symbol;
