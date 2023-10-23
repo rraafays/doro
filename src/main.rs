@@ -3,7 +3,15 @@ mod utils;
 use clap::Parser;
 use std::thread::sleep;
 use std::time::Duration;
-use utils::{advance, get_operation, print_time, reset_seconds, Mode, Operation, Time};
+use utils::{
+    advance,
+    get_operation,
+    print_time,
+    reset_seconds,
+    Mode,
+    Operation,
+    Time,
+};
 
 #[derive(Parser)]
 struct Arguments {
