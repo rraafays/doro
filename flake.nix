@@ -25,7 +25,6 @@
               cargo
               rustc
               rustfmt
-              rust-analyzer
             ]
             ++ lib.optional stdenv.isDarwin libiconv;
         };
